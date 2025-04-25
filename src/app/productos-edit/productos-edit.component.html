@@ -1,0 +1,51 @@
+<div class="mb-3">
+  <a [routerLink]="['/create']" class="btn btn-primary">Agregar Producto</a>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Marca</th>
+      <th>Costo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.producto }}</td>
+      <td>{{ product.marca }}</td>
+      <td>{{ product.costo | currency:'USD' }}</td>
+      <td>
+        <button class="btn btn-info btn-sm mr-2" (click)="viewProduct(product)" data-toggle="modal" data-target="#viewModal">Ver</button>
+        <a [routerLink]="['/edit', product.id]" class="btn btn-warning btn-sm mr-2">Editar</a>
+        <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id!)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal para consultar detalles -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewModalLabel">Detalles del Producto</h5>
+        <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="selectedProduct">
+        <p><strong>ID:</strong> {{ selectedProduct.id }}</p>
+        <p><strong>Producto:</strong> {{ selectedProduct.producto }}</p>
+        <p><strong>Código de Barras:</strong> {{ selectedProduct.codigobarras }}</p>
+        <p><strong>Marca:</strong> {{ selectedProduct.marca }}</p>
+        <p><strong>Costo:</strong> {{ selectedProduct.costo | currency:'USD' }}</p>
+        <p><strong>Estatus:</strong> {{ selectedProduct.estatus === 'A' ? 'Activo' : 'Inactivo' }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

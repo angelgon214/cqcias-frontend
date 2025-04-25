@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-header">
+    <h2>{{ isEditMode ? 'Editar Producto' : 'Crear Producto' }}</h2>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="saveProduct()" #productForm="ngForm">
+      <div class="form-group">
+        <label for="producto">Producto:</label>
+        <input type="text" class="form-control" id="producto" [(ngModel)]="product.producto" name="producto" required maxlength="100">
+      </div>
+      <div class="form-group">
+        <label for="codigobarras">Código de Barras:</label>
+        <input type="number" class="form-control" id="codigobarras" [(ngModel)]="product.codigobarras" name="codigobarras" required min="-2147483648" max="2147483647">
+     </div>
+      <div class="form-group">
+        <label for="marca">Marca:</label>
+        <input type="text" class="form-control" id="marca" [(ngModel)]="product.marca" name="marca" required maxlength="100">
+      </div>
+      <div class="form-group">
+        <label for="costo">Costo:</label>
+        <input type="number" class="form-control" id="costo" [(ngModel)]="product.costo" name="costo" required step="0.01" min="0">
+      </div>
+      <div class="form-group">
+        <label for="estatus">Estatus:</label>
+        <select class="form-control" id="estatus" [(ngModel)]="product.estatus" name="estatus" required>
+          <option value="A">Activo</option>
+          <option value="I">Inactivo</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success mr-2" [disabled]="!productForm.valid">Guardar</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+    </form>
+  </div>
+</div>
